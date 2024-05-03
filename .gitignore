@@ -4,3 +4,4 @@ output
 inference
 __pycache__
 env
+*.tar.gz
