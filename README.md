@@ -89,3 +89,5 @@ negative는 특정 인물이 포함되지 않은 이미지를 분류한 것이�
 │   ├── negative
 │   └── positive
 ```
+
+### [성능 평가](https://github.com/sukkyun2/graduation-farewell-reception/wiki/%EC%84%B1%EB%8A%A5-%ED%8F%89%EA%B0%80)
