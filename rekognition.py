@@ -20,6 +20,9 @@ class Rekognition:
                                         aws_access_key_id=aws_access_key_id,
                                         aws_secret_access_key=aws_secret_access_key)
 
+        self.positive_path = 'inference/positive'
+        self.negtive_path = 'inference/negative'
+
     def detect_labels(self, image_path):
         # 이미지 파일에서 레이블 검출
         with open(image_path, 'rb') as image_file:
@@ -34,9 +37,6 @@ class Rekognition:
         return labels
 
     def compare_faces(self, source_image_path, target_image_path, similarity_threshold=20.0):
-        positive_path = 'inference/positive'
-        negtive_path = 'inference/negative'
-
         with open(source_image_path, 'rb') as source_image_file, open(target_image_path, 'rb') as target_image_file:
             source_image_bytes = source_image_file.read()
             target_image_bytes = target_image_file.read()
@@ -51,8 +51,17 @@ class Rekognition:
                 similarity = match['Similarity']
                 print(f"Similarity: {similarity}%")
 
-                copy_image(target_image_path, positive_path)
+                copy_image(target_image_path, self.positive_path)
         else:
             print(f"No face match found. File Name : {os.path.basename(target_image_path)}")
 
-            copy_image(target_image_path, negtive_path)
+            copy_image(target_image_path, self.negtive_path)
+
+    def make_inference_dir_if_not_exists(self):
+        def make_dir(dir_path: str):
+            if not os.path.exists(dir_path):
+                os.makedirs(dir_path)
+                print(f"Directory has been created: {dir_path}")
+
+        for path in [self.positive_path, self.negtive_path]:
+            make_dir(path)

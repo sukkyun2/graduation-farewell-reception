@@ -32,6 +32,7 @@ if __name__ == '__main__':
     target_image_paths = get_image_paths(parsed.target_directory_path)
 
     rekognition = Rekognition(parsed.aws_access_key_id, parsed.aws_secret_access_key)
+    rekognition.make_inference_dir_if_not_exists()
     for target_image_path in target_image_paths:
         try:
             rekognition.compare_faces(parsed.source_image_path, target_image_path)
