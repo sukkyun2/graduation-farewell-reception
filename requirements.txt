@@ -24,3 +24,7 @@ typing-extensions==4.7.1
 urllib3==1.26.18
 wsproto==1.2.0
 zipp==3.15.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.2.0
+googleapis-common-protos==1.63.0
+google-api-python-client==2.127.0
