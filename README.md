@@ -3,6 +3,17 @@
 ---
 이 프로젝트는 졸업식 환송회 행사에서 전달 할 졸업생들의 사진을 분류하는 분류기입니다
 
+## 실행 방법
+`Makefile`을 사용하여 전체 실행 or 개별 실행이 가능하다.  
+`Makefile`내 환경변수의 값들을 입력하고 실행한다.
+
+```shell
+make all
+```
+
+
+## 세부 과정
+
 사진 분류는 총 `두 가지 과정`으로 진행된다
 
 1. 네이버 카페 메뉴 카테고리에 있는 모든 게시글의 사진을 크롤링
@@ -88,6 +99,29 @@ negative는 특정 인물이 포함되지 않은 이미지를 분류한 것이�
 ├── inference
 │   ├── negative
 │   └── positive
+```
+
+### 3. 업로드
+`2번 과정`에서 필터링한 이미지들 중 타겟과 일치한 사진들(positive)만 압축하여 드라이브에 업로드한다.
+
+업로드를 위해서 json 확장자를 가진 service account를 발급받아야한다.  
+또한 `GOOGLE_APPLICATION_CREDENTIALS` 환경변수 선언이 필요하다.
+
+```
+GOOGLE_APPLICATION_CREDENTIALS=service_account.json
+```
+
+| 파라미터 명                  | 설명                                              | 필수 파라미터 여부 |
+|-------------------------|-------------------------------------------------|------------|
+| --target_dir     | 업로드할 output 디렉토리 경로(default inference/positive) | X          |
+| --google_drive_dir_id | 드라이브에 업로드할 디렉토리 경로                              | O          |
+
+#### 실행 예시
+
+```bash
+python upload_drive.py \
+--target_dir=inference/positive \ 
+--google_drive_dir_id=1rv9aH7DE1QA18PaatrDa \
 ```
 
 ### [성능 평가](https://github.com/sukkyun2/graduation-farewell-reception/wiki/%EC%84%B1%EB%8A%A5-%ED%8F%89%EA%B0%80)
